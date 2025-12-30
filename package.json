@@ -1,0 +1,12 @@
+{
+  "name": "klaviyo-unique-code",
+  "type": "module",
+  "private": true,
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}
