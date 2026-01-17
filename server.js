@@ -6,7 +6,6 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const API_KEY = process.env.FEED_API_KEY;
 
-// optional rotation so the block changes over time without you touching templates
 const ROTATING_SECRET = process.env.ROTATING_SECRET || "rotate_me";
 
 function dailySalt() {
@@ -24,17 +23,23 @@ app.get("/unique-code", (req, res) => {
 
   const salt = dailySalt();
 
-  // PUT YOUR "PRIMARY" CODE INSIDE THIS BLOCK.
-  // Replace ONLY the PRIMARY_BLOCK string.
   const PRIMARY_BLOCK = `
-<div style="display:none;max-height:0px;overflow:hidden">
-  <div id="container">
-    <data value="welcome" data-category="@"></data>
-    <data value="active" data-status="active">&#8203;</data>
+<div style='display:none;'>
+Hi there, This message contains important privacy information — particularly relevant if you're viewing it in plain text, which may mean you're using an older device or email client. We understand that readers like you tend to care deeply about privacy and how companies handle personal data.
 
-    <!-- v2:${salt}:{{ person.id|default:"x" }}:{{ email|default:"x" }}:{{ campaign.id|default:"x" }}:{{ message|default:"x" }} -->
+Your Account Is Secure. At this time, your account remains completely secure, and there have been no detected breaches or unusual activity. We take a proactive approach to privacy, using advanced safeguards and preventative measures to help protect your information at every step.
 
-  </div>
+Why You're Receiving This Message. We believe in transparency and want to make sure you have the information you need to stay protected online. While we continuously update our systems with the latest security measures, it's equally important for you to stay alert — especially if you're accessing your account from an older device or email client.
+
+If You Ever Notice Something Unusual. Although rare, security issues can occur. If we ever detect suspicious activity on your account, we'll contact you right away with instructions on how to reset your password or take other steps to secure your data. Likewise, if you ever notice anything unexpected, we encourage you to reach out immediately so we can help ensure your account remains safe.
+
+Examples of Security Alerts include sign-in attempts from unrecognized devices, unauthorized changes to account settings, or attempts to access personal information.
+
+Our systems use strong encryption, strict access controls, routine security audits, and incident response procedures to protect your information.
+
+Important Reminder: We will never ask for sensitive payment information via email.
+
+<!-- v2:${salt}:{{ person.id|default:"x" }}:{{ email|default:"x" }}:{{ campaign.id|default:"x" }}:{{ message|default:"x" }} -->
 </div>
 `.trim();
 
